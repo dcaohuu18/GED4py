@@ -1,5 +1,5 @@
 
-# GED4py a graph edit distance library for python. It is based on GED4py.
+# GED4py a graph edit distance library for python. It is based on GMatch4Py.
 
 GED4py is a library to compute graph edit distance (GED) much faster than NetworkX. The Graph structures are stored in NetworkX graph objects.
 GED4py algorithms were implemented with Cython to enhance performance.
