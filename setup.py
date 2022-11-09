@@ -48,7 +48,7 @@ def makeExtension(extName):
         )
 
 # get the list of extensions
-extNames = scandir("gmatch4py")
+extNames = scandir("ged4py")
 
 # and build up the set of Extension objects
 extensions = cythonize([makeExtension(name) for name in extNames])
@@ -58,20 +58,20 @@ this_directory = path.abspath(path.dirname(__file__))
 with open(path.join(this_directory, 'README.md'), encoding='utf-8') as f:
     long_description = f.read()
 
-requirements=["numpy","networkx","scipy",'scikit-learn','tqdm','pandas',"joblib","gensim","psutil"]
+requirements=["numpy","networkx","joblib"]
 setup(
-    name="GMatch4py",
-    author="Jacques Fize",
-    description="A python module for graph matching (use Cython)",
+    name="GED4py",
+    author="Adrian Hofmann",
+    description="A python module for fast Graph Edit distance computation (use Cython)",
     long_description=long_description,
     long_description_content_type='text/markdown',
-    url="https://github.com/Jacobe2169/GMatch4py",
-    packages=["gmatch4py"],
+    url="https://github.com/chilligerchief/GED4py",
+    packages=["ged4py"],
     ext_modules=extensions,
     cmdclass={'build_ext': build_ext},
     setup_requires=requirements,
     install_requires=requirements,
-    version="0.2.5b",
+    version="1.0.0",
     classifiers=[
             "Programming Language :: Python :: 3",
             "License :: OSI Approved :: MIT License",
