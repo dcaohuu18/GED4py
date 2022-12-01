@@ -180,7 +180,7 @@ cdef class AbstractGraphEditDistance(Base):
         cdef int n = len(listgs)
         cdef double[:,:] comparison_matrix = np.zeros((n, n))
         listgs=parsenx2graph(listgs,self.node_attr_key,self.edge_attr_key)
-        cdef long[:] n_nodes = np.array([g.size() for g in listgs])
+        cdef long[:] n_nodes = np.array([g.size() for g in listgs], dtype=np.int64)
         cdef double[:] selected_test = np.array(self.get_selected_array(selected,n))
         cdef int i,j
         cdef float inf=np.inf
