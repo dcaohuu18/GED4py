@@ -9,11 +9,7 @@ cimport numpy as np
 import networkx as nx
 from cython.parallel cimport prange,parallel
 
-try:
-    from munkres import munkres
-except ImportError:
-    warnings.warn("To obtain optimal results install the Cython 'munkres' module at  https://github.com/jfrelinger/cython-munkres-wrapper")
-    from scipy.optimize import linear_sum_assignment as munkres
+from scipy.optimize import linear_sum_assignment
 
 from ..base cimport Base
 from ..helpers.general import parsenx2graph
@@ -53,7 +49,7 @@ cdef class AbstractGraphEditDistance(Base):
 
     def edit_path(self,G,H):
         """
-        Return  the edit path along with the cost matrix and the selected indices from the Munkres Algorithm
+        Return  the edit path along with the cost matrix and the selected indices
         
         Parameters
         ----------
@@ -64,11 +60,11 @@ cdef class AbstractGraphEditDistance(Base):
         
         Returns
         -------
-        np.array(1D), np.array(2D), (np.array(2D) if munkres) or (np.array(1,2) if scipy) 
-            edit_path, cost_matrix, munkres results
+        np.array(1D), np.array(2D),  (np.array(1,2)) 
+            edit path, cost matrix, selected indices
         """
         cost_matrix = self.create_cost_matrix(G,H).astype(float)
-        index_path= munkres(cost_matrix)
+        index_path= linear_sum_assignment(cost_matrix)
         return cost_matrix[index_path], cost_matrix, index_path
     
 
@@ -89,7 +85,7 @@ cdef class AbstractGraphEditDistance(Base):
             edit path
         """
         cdef np.ndarray cost_matrix = self.create_cost_matrix(G,H).astype(float)
-        return cost_matrix[munkres(cost_matrix)].tolist()
+        return cost_matrix[linear_sum_assignment(cost_matrix)].tolist()
 
     cpdef np.ndarray create_cost_matrix(self, G, H):
         """
