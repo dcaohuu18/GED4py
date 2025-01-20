@@ -106,8 +106,8 @@ cdef class HED(Base):
         nodes2.extend([None])
         cdef np.ndarray min_i
         for i in range(g1.size()):
-            min_i = np.zeros(g2.size())
-            for j in range(g2.size()):
+            min_i = np.zeros(g2.size()+1)
+            for j in range(g2.size()+1):
                 min_i[j] = self.fuv(g1, g2, nodes1[i], nodes2[j])
             min_sum[i] = np.min(min_i)
         return np.sum(min_sum)
